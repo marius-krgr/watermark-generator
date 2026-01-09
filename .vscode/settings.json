@@ -1,0 +1,8 @@
+{
+  "python.formatting.provider": "black",
+  "editor.formatOnSave": true,
+  "python.linting.enabled": true,
+  "python.analysis.typeCheckingMode": "basic",
+  // "editor.defaultFormatter": "ms-python.black-formatter",
+  "editor.defaultFormatter": "ms-python.python"
+  }

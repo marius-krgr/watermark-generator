@@ -32,8 +32,8 @@ Uni - Programmieren 1 - Second Video project
    1. scal
    2. Bilder zusammenführen
    3. Nur Resizte Bild anzeigen
+   
 2. Key positionieren
-
    1. Keybild positionieren
    2. Bilder zusammenführen
    3. Nur Repositionierte Bild anzeigen
