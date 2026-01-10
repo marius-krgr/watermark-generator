@@ -1,5 +1,5 @@
-from src.Image import Image
-import src.utils as utils
+from Image import Image
+import utils
 
 def welcome():
     print("Moin! Ich bin Watermarky, dein persönlicher Bildbearbeitungs- und Wassermarkierungs-Ersteller-Assistent! :)")
@@ -28,7 +28,7 @@ def checkImagesLoaded(image_background, image_key):
     else:
         print("Bilder wurden erfolgreich geladen!")
 
-def userInterface():
+def userInterface(Image_background, Image_key):
     print("User-Interface - Home")
     print("Was möchtest du tun? Aktionen:")
     print("1. Bild anzeigen")
@@ -44,38 +44,56 @@ def userInterface():
     print("9. Programm beenden")
     print("")
     print("Um eine Aktion auszuwählen, gib die entsprechende Zahl ein:")
-    action = input("Eingabe: ")
-    if action == "1":
-        print("Aktion 1 ausgewählt: Bild anzeigen")
-        #methode fehlt noch
-    elif action == "2":
-        print("Aktion 2 ausgewählt: Bildinformationen anzeigen")
-        #methode fehlt noch
-    elif action == "3":
-        print("Aktion 3 ausgewählt: Bildgröße ändern")
-        #methode fehlt noch
-    elif action == "4":
-        print("Aktion 4 ausgewählt: Wassermarke hinzufügen")
-        #methode fehlt noch
-    elif action == "5":
-        print("Aktion 5 ausgewählt: Wassermarke positionieren")
-        #methode fehlt noch
-    elif action == "6":
-        print("Aktion 6 ausgewählt: Wassermarke skalieren")
-        #methode fehlt noch
-    elif action == "7":
-        print("Aktion 7 ausgewählt: Wassermarke entfernen")
-        #methode fehlt noch
-    elif action == "8":
-        print("Aktion 8 ausgewählt: Bild exportieren")
-        #methode fehlt noch
-    elif action == "9":
-        print("Programm wird beendet. Auf Wiedersehen!")
-        exit()
-    else:
-        print("Ungültige Eingabe. Bitte versuche es erneut.")
+    while True:
+        action = input("Eingabe: ")
+        if action == "1":
+            print("Aktion 1 ausgewählt: Bild anzeigen")
+            image = utils.whichImage()
+            if image == "Image_background":
+                Image_background.display()
+            elif image == "Image_key":
+                Image_key.display()
+            break
+        elif action == "2":
+            print("Aktion 2 ausgewählt: Bildinformationen anzeigen")
+            image = utils.whichImage()
+            if image == "Image_background":
+                print(Image_background.getAllImgData())
+            elif image == "Image_key":
+                print(Image_key.getAllImgData())
+            input("Drücke Enter, um fortzufahren...")
+            break
+        elif action == "3":
+            print("Aktion 3 ausgewählt: Bildgröße ändern")
+            #methode fehlt noch
+            break
+        elif action == "4":
+            print("Aktion 4 ausgewählt: Wassermarke hinzufügen")
+            #methode fehlt noch
+            break
+        elif action == "5":
+            print("Aktion 5 ausgewählt: Wassermarke positionieren")
+            #methode fehlt noch
+            break
+        elif action == "6":
+            print("Aktion 6 ausgewählt: Wassermarke skalieren")
+            #methode fehlt noch
+            break
+        elif action == "7":
+            print("Aktion 7 ausgewählt: Wassermarke entfernen")
+            #methode fehlt noch
+            break
+        elif action == "8":
+            print("Aktion 8 ausgewählt: Bild exportieren")
+            #methode fehlt noch
+            break
+        elif action == "9":
+            print("Programm wird beendet. Auf Wiedersehen!")
+            exit()
+        else:
+            print("Ungültige Eingabe. Bitte versuche es erneut.")
     #Rückkehr zum User-Interface
-    userInterface()
+    userInterface(Image_background, Image_key)
 
 
 def main():
@@ -89,10 +107,7 @@ def main():
     # Überprüfe ob Bilder geladen wurden
     checkImagesLoaded(Image_background, Image_key)
     # User-Interface aufrufen
-    userInterface()
-
-
-
+    userInterface(Image_background, Image_key)
     
 if __name__ == "__main__":
     main()

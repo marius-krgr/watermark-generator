@@ -15,3 +15,16 @@ def getFilename():
 
 def getFilpath(filename, folder):
     return os.path.join(folder, filename)
+
+def whichImage():
+    print("Welches Bild möchtest du auswählen?")
+    print("1. Hintergrundbild")
+    print("2. Keybild")
+    while True:
+        choice = input("Eingabe (1 oder 2): ")
+        if choice == "1":
+            return "Image_background"
+        elif choice == "2":
+            return "Image_key"
+        else:
+            print("Ungültige Eingabe. Bitte wähle 1 oder 2.")
