@@ -32,7 +32,7 @@ Uni - Programmieren 1 - Second Video project
    1. scal
    2. Bilder zusammenführen
    3. Nur Resizte Bild anzeigen
-   
+
 2. Key positionieren
    1. Keybild positionieren
    2. Bilder zusammenführen
@@ -42,6 +42,7 @@ Uni - Programmieren 1 - Second Video project
    1. Hintergrundbild
    2. Key-Bild Resizen
 4. Comand Z (Letzte Bild im Hinterkopf haben)
+   - Dafür einfach neues Attribut in Image Object. Immer wenn neu gesetzt wird, das alte vorher auch nochmal speichern...
 5. Bilder anzeigen
    1. Hintergrundbild
    2. Key

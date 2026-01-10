@@ -28,20 +28,21 @@ def checkImagesLoaded(image_background, image_key):
     else:
         print("Bilder wurden erfolgreich geladen!")
 
-def userInterface(Image_background, Image_key):
+def userInterface(Image_background, Image_key, Image_alpha):
     print("User-Interface - Home")
     print("Was möchtest du tun? Aktionen:")
     print("1. Bild anzeigen")
     print("2. Bildinformationen anzeigen")
     print("3. Bildgröße ändern")
     print("")
-    print("4. Wassermarke hinzufügen")
+    print("4. Wassermarke generieren")
     print("5. Wassermarke positionieren")
     print("6. Wassermarke skalieren")
-    print("7. Wassermarke entfernen")
+    print("7. Wassermarke über Bild setzen")
+    print("8. Wassermarke entfernen")
     print("")
-    print("8. Bild exportieren")
-    print("9. Programm beenden")
+    print("9. Bild exportieren")
+    print("10. Programm beenden")
     print("")
     print("Um eine Aktion auszuwählen, gib die entsprechende Zahl ein:")
     while True:
@@ -65,11 +66,20 @@ def userInterface(Image_background, Image_key):
             break
         elif action == "3":
             print("Aktion 3 ausgewählt: Bildgröße ändern")
-            #methode fehlt noch
+            image = utils.whichImage()
+            w = input("Gib die neue Breite in Pixel ein: ")
+            h = input("Gib die neue Höhe in Pixel ein: ")
+            if image == "Image_background":
+                Image_background.resize(w, h)
+            elif image == "Image_key":
+                Image_key.resize(w, h)
+            input("Drücke Enter, um fortzufahren...")
             break
         elif action == "4":
-            print("Aktion 4 ausgewählt: Wassermarke hinzufügen")
-            #methode fehlt noch
+            print("Aktion 4 ausgewählt: Wassermarke generieren")
+            path = Image_key.createAlpha()
+            Image_alpha = Image(path)
+            input("Key erfolgreich erstellt. Drücke Enter, um fortzufahren...")
             break
         elif action == "5":
             print("Aktion 5 ausgewählt: Wassermarke positionieren")
@@ -80,20 +90,28 @@ def userInterface(Image_background, Image_key):
             #methode fehlt noch
             break
         elif action == "7":
-            print("Aktion 7 ausgewählt: Wassermarke entfernen")
-            #methode fehlt noch
+            print("Aktion 7 ausgewählt: Wassermarke über Bild setzen")
+            #wo abfragen?
+            if Image_alpha is None:
+                break
+            patch = Image_background.compose(Image_key, Image_alpha, 0, 0)
+            input("Wassermarke erfolgreich gesetzt. Drücke Enter, um fortzufahren...")
             break
         elif action == "8":
-            print("Aktion 8 ausgewählt: Bild exportieren")
+            print("Aktion 8 ausgewählt: Wassermarke entfernen")
             #methode fehlt noch
             break
         elif action == "9":
+            print("Aktion 9 ausgewählt: Bild exportieren")
+            #methode fehlt noch
+            break
+        elif action == "10":
             print("Programm wird beendet. Auf Wiedersehen!")
             exit()
         else:
             print("Ungültige Eingabe. Bitte versuche es erneut.")
     #Rückkehr zum User-Interface
-    userInterface(Image_background, Image_key)
+    userInterface(Image_background, Image_key, Image_alpha)
 
 
 def main():
@@ -104,10 +122,11 @@ def main():
     # Objekt erstellen
     Image_background = Image(filepath_background)
     Image_key = Image(filepath_key)
+    Image_alpha = None
     # Überprüfe ob Bilder geladen wurden
     checkImagesLoaded(Image_background, Image_key)
     # User-Interface aufrufen
-    userInterface(Image_background, Image_key)
+    userInterface(Image_background, Image_key, Image_alpha)
     
 if __name__ == "__main__":
     main()

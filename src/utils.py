@@ -3,8 +3,6 @@ import os
 def getFilename():
     while True:
         answer = input("Eingabe: ")
-        if not answer.lower().endswith(".png"):
-            answer += ".png"
         path = os.path.join("import", answer)
 
         if os.path.isfile(path):
@@ -24,6 +22,8 @@ def whichImage():
         choice = input("Eingabe (1 oder 2): ")
         if choice == "1":
             return "Image_background"
+        elif choice == "2":
+            return "Image_key"
         elif choice == "2":
             return "Image_key"
         else:
