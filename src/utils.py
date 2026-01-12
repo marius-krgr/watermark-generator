@@ -18,13 +18,14 @@ def whichImage():
     print("Welches Bild möchtest du auswählen?")
     print("1. Hintergrundbild")
     print("2. Keybild")
+    print("3. komibiniertes Bild")
     while True:
-        choice = input("Eingabe (1 oder 2): ")
+        choice = input("Eingabe (1 oder 2 oder 3): ")
         if choice == "1":
             return "Image_background"
         elif choice == "2":
             return "Image_key"
-        elif choice == "2":
-            return "Image_key"
+        elif choice == "3":
+            return "Image_composed"
         else:
-            print("Ungültige Eingabe. Bitte wähle 1 oder 2.")
+            print("Ungültige Eingabe. Bitte wähle 1 oder 2 oder 3.")
