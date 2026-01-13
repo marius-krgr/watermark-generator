@@ -18,7 +18,7 @@ def getImageFilepaths():
     filename_key = utils.getFilename()
     filepath_key = utils.getFilpath(filename_key, "import") 
     #Filepath kombiniertes Bild festlegen
-    filepath_composed = "import/composed_img.png"
+    filepath_composed = "working/composed_img.png"
     return filepath_background, filepath_key, filepath_composed
 
 
@@ -89,11 +89,15 @@ def userInterface(Image_background, Image_key, Image_alpha, Image_composed, pos_
             path = Image_key.createAlpha()
             Image_alpha = Image(path)
             input("Key erfolgreich erstellt. Drücke Enter, um fortzufahren...")
+            if Image_alpha is None:
+                break
+            filepath_composed = Image_background.compose(Image_key, Image_alpha, 0, 0)
+            Image_composed = Image(filepath_composed)
+            input("Wassermarke erfolgreich gesetzt. Drücke Enter, um das kombinierte Bild anzuzeigen")
+            Image_composed.display()
             break
         elif action == "5":
             print("Aktion 5 ausgewählt: Wassermarke positionieren")
-            #methode fehlt noch
-            #ellen hat sich hier dran versucht, kann man bestimmt noch schöner machen:
             if Image_alpha is None:
                 print("FEHLER: Du musst erst eine Wassermarke generieren.")
                 break
@@ -113,9 +117,6 @@ def userInterface(Image_background, Image_key, Image_alpha, Image_composed, pos_
             break
         elif action == "6":
             print("Aktion 6 ausgewählt: Wassermarke skalieren")
-            #methode fehlt noch
-            #ellen hat sich hier dran versucht, kann man bestimmt noch schöner machen:
-            #pos_x und pos_y müssen hierhin übergeben werden noch
             if Image_alpha is None:
                 print("FEHLER: Du musst erst eine Wassermarke generieren.")
                 break
@@ -137,6 +138,7 @@ def userInterface(Image_background, Image_key, Image_alpha, Image_composed, pos_
         elif action == "7":
             print("Aktion 7 ausgewählt: Wassermarke über Bild setzen")
             #wo abfragen?
+            #diese Action unnötig, wenn wir das Bild schon in Action 4 erstellen
             if Image_alpha is None:
                 break
             patch = Image_background.compose(Image_key, Image_alpha, 0, 0)
@@ -148,8 +150,7 @@ def userInterface(Image_background, Image_key, Image_alpha, Image_composed, pos_
             break
         elif action == "9":
             print("Aktion 9 ausgewählt: Bild exportieren")
-            #methode fehlt noch
-            #ellen und Chat are best friends, we did this:
+            #Action 9 mithilfe von Chat erstellt
             if Image_composed is None:
                 print("FEHLER: Es gibt kein Bild zum Exportieren.")
                 break

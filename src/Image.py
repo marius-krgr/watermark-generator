@@ -80,7 +80,7 @@ class Image:
         patch[mask3] = key[mask3]
 
         out[y:y+h, x:x+w] = patch
-        path = "import/composed_img.png"
+        path = "working/composed_img.png"
         cv.imwrite(path, out)
         return path
     
