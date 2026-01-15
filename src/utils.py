@@ -18,7 +18,7 @@ def whichImage():
     print("Welches Bild möchtest du auswählen?")
     print("1. Hintergrundbild")
     print("2. Keybild")
-    print("3. komibiniertes Bild")
+    print("3. Kombiniertes Bild")
     while True:
         choice = input("Eingabe (1 oder 2 oder 3): ")
         if choice == "1":
@@ -28,4 +28,19 @@ def whichImage():
         elif choice == "3":
             return "Image_composed"
         else:
-            print("Ungültige Eingabe. Bitte wähle 1 oder 2 oder 3.")
+            print("Ungültige Eingabe. Bitte wähle 1, 2 oder 3.")
+
+def deleteFile(path):
+    if os.path.exists(path):
+        try:
+            os.remove(path)
+        except Exception as e:
+            print(f"Fehler beim Löschen der Datei {path}: {e}")
+        if not os.path.exists(path):
+            return 1
+        else:
+            print("Die Datei konnte nicht gelöscht werden. Bitte prüfe Berechtigungen oder ob die Datei geöffnet ist.")
+            return 0
+    else:
+        print(f"Datei nicht gefunden: {path}")
+        return 0

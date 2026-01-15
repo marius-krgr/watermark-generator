@@ -68,9 +68,23 @@ def userInterface(Image_background, Image_key, Image_alpha, Image_composed, pos_
             print("Aktion 2 ausgewählt: Bildinformationen anzeigen")
             image = utils.whichImage()
             if image == "Image_background":
-                print(Image_background.getAllImgData())
+                path, width, height = Image_background.getAllImgData()
             elif image == "Image_key":
-                print(Image_key.getAllImgData())
+                path, width, height = Image_key.getAllImgData()
+            elif image == "Image_composed":
+                    if Image_composed is None:
+                        print("es ist noch kein kombiniertes Bild vorhanden")
+                        break
+                    else:
+                        path, width, height = Image_composed.getAllImgData()
+                        if width == 0:
+                            print("es ist noch kein kombiniertes Bild vorhanden")
+                            input("Drücke Enter, um fortzufahren...")
+                            break
+
+            print("Pfad:", path)
+            print("Breite:", width)
+            print("Höhe:", height)
             input("Drücke Enter, um fortzufahren...")
             break
         elif action == "3":
@@ -88,9 +102,10 @@ def userInterface(Image_background, Image_key, Image_alpha, Image_composed, pos_
             print("Aktion 4 ausgewählt: Wassermarke generieren")
             path = Image_key.createAlpha()
             Image_alpha = Image(path)
-            input("Key erfolgreich erstellt. Drücke Enter, um fortzufahren...")
             if Image_alpha is None:
+                print("Es scheint ein Fehler aufgetreten zu sein. Bitte versuche es erneut.")
                 break
+            input("Key erfolgreich erstellt. Drücke Enter, um fortzufahren...")
             filepath_composed = Image_background.compose(Image_key, Image_alpha, 0, 0)
             Image_composed = Image(filepath_composed)
             input("Wassermarke erfolgreich gesetzt. Drücke Enter, um das kombinierte Bild anzuzeigen")
@@ -103,6 +118,7 @@ def userInterface(Image_background, Image_key, Image_alpha, Image_composed, pos_
                 break
             print("Hier siehst du die Breite und Höhe deines Hintergrundbildes:")
             print(Image_background.getAllImgData())
+            #Fehler abfangen, wenn User keine ganze Zahl eingibt
             pos_x = input("Gib die horizontale Position deines Wasserzeichens in Pixel ein (ganze Zahlen):")
             pos_y = input("Gib die vertikale Position deines Wasserzeichens in Pixel ein (ganze Zahlen):")
             pos_x = int(pos_x)
@@ -137,17 +153,30 @@ def userInterface(Image_background, Image_key, Image_alpha, Image_composed, pos_
             break
         elif action == "7":
             print("Aktion 7 ausgewählt: Wassermarke über Bild setzen")
-            #wo abfragen?
-            #diese Action unnötig, wenn wir das Bild schon in Action 4 erstellen
-            if Image_alpha is None:
-                break
-            patch = Image_background.compose(Image_key, Image_alpha, 0, 0)
-            input("Wassermarke erfolgreich gesetzt. Drücke Enter, um fortzufahren...")
-            break
+            print("Diese Aktion scheint es nicht zu geben.")
+            # #wo abfragen?
+            # #diese Action unnötig, wenn wir das Bild schon in Action 4 erstellen
+            # if Image_alpha is None:
+            #     break
+            # patch = Image_background.compose(Image_key, Image_alpha, 0, 0)
+            # input("Wassermarke erfolgreich gesetzt. Drücke Enter, um fortzufahren...")
+            # break
         elif action == "8":
             print("Aktion 8 ausgewählt: Wassermarke entfernen")
-            #methode fehlt noch
-            break
+            confirm = input("Bist du sicher, dass du die Wassermarke entfernen möchtest? (j/n): ").lower()
+            if confirm in ("j", "y"):
+                    path = os.path.join("working", "composed_img.png")
+                    deleted = utils.deleteFile(path)
+                    if deleted: 
+                        Image_composed = None
+                        print("Wassermarke wurde entfernt.")
+                    else :
+                        break
+            else:
+                print("Aktion abgebrochen. Keine Änderungen vorgenommen.")
+                break
+            input("Drücke Enter, um fortzufahren...")
+
         elif action == "9":
             print("Aktion 9 ausgewählt: Bild exportieren")
             #Action 9 mithilfe von Chat erstellt
@@ -162,6 +191,8 @@ def userInterface(Image_background, Image_key, Image_alpha, Image_composed, pos_
             break
         elif action == "10":
             print("Programm wird beendet. Auf Wiedersehen!")
+            path = os.path.join("working", "composed_img.png")
+            utils.deleteFile(path)
             exit()
         else:
             print("Ungültige Eingabe. Bitte versuche es erneut.")

@@ -131,7 +131,7 @@ class Image:
         return self.__img
     
     def getAllImgData(self):
-        return f"Image(path={self.__path}, width={self.__width}, height={self.__height})"
+        return self.__path, self.__width, self.__height
     
     def __str__(self):
         return f"Image(path={self.__path}, width={self.__width}, height={self.__height})"
