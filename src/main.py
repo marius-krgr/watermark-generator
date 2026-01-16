@@ -59,11 +59,11 @@ def userInterface(Image_background, Image_key, Image_alpha, Image_composed, pos_
             elif image == "Image_key":
                 Image_key.display()
             elif image == "Image_composed":
-                if Image_composed.getImage() is None:
+                if Image_composed.getImage() is None: # type: ignore
                     print("FEHLER: Es ist noch kein kombiniertes Bild vorhanden, du musst zuerst eine Wassermarke generieren")
                     input("Drücke Enter, um fortzufahren...")
                 else:
-                    Image_composed.display()
+                    Image_composed.display()# type: ignore
             break
         elif action == "2":
             print("Aktion 2 ausgewählt: Bildinformationen anzeigen")
@@ -73,12 +73,12 @@ def userInterface(Image_background, Image_key, Image_alpha, Image_composed, pos_
             elif image == "Image_key":
                 path, width, height = Image_key.getAllImgData()
             elif image == "Image_composed":
-                    if Image_composed.getImage() is None:
+                    if Image_composed.getImage() is None:# type: ignore
                         print("FEHLER: Es ist noch kein kombiniertes Bild vorhanden, du musst zuerst eine Wassermarke erstellen")
                         input("Drücke Enter, um fortzufahren...")
                         break
                     else:
-                        path, width, height = Image_composed.getAllImgData()
+                        path, width, height = Image_composed.getAllImgData()# type: ignore
                         if width == 0:
                             print("es ist noch kein kombiniertes Bild vorhanden")
                             input("Drücke Enter, um fortzufahren...")
@@ -93,7 +93,7 @@ def userInterface(Image_background, Image_key, Image_alpha, Image_composed, pos_
             print("Aktion 3 ausgewählt: Bildgröße ändern")
             image = utils.whichImage()
             if image == "Image_composed":
-                if Image_composed.getImage() is None:
+                if Image_composed.getImage() is None:# type: ignore
                         print("FEHLER: Es ist noch kein kombiniertes Bild vorhanden, du musst zuerst eine Wassermarke erstellen")
                         input("Drücke Enter, um fortzufahren...")
                         break
@@ -104,7 +104,7 @@ def userInterface(Image_background, Image_key, Image_alpha, Image_composed, pos_
             elif image == "Image_key":
                 Image_key.resize(w, h)
             elif image == "Image_composed":
-                Image_composed.resize(w, h)
+                Image_composed.resize(w, h)# type: ignore
             input("Drücke Enter, um fortzufahren...")
             break
         elif action == "4":
