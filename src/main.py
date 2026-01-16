@@ -10,7 +10,7 @@ def welcome():
 
 def getImageFilepaths():
     # Hintergrundbild abfragen
-    print("Wie heißt die Bilddatei die du als Hintergrund verwenden möchtest?")
+    print("Wie heißt die Bilddatei die du als Hintergrund verwenden möchtest? (mit Endung angeben, bitte. Z.B. '.jpg' oder '.png')")
     filename_background = utils.getFilename()
     filepath_background = utils.getFilpath(filename_background, "import")
     #Keybild abfragen
@@ -42,10 +42,10 @@ def userInterface(Image_background, Image_key, Image_alpha, Image_composed, pos_
     print("4. Wassermarke generieren")
     print("5. Wassermarke positionieren")
     print("6. Wassermarke skalieren")
-    print("7. Wassermarke über Bild setzen")
-    print("8. Wassermarke entfernen")
+    print("7. Wassermarke entfernen")
     print("")
-    print("9. Bild exportieren")
+    print("8. Bild exportieren")
+    print("")
     print("10. Programm beenden")
     print("")
     print("Um eine Aktion auszuwählen, gib die entsprechende Zahl ein:")
@@ -59,8 +59,9 @@ def userInterface(Image_background, Image_key, Image_alpha, Image_composed, pos_
             elif image == "Image_key":
                 Image_key.display()
             elif image == "Image_composed":
-                if Image_composed is None:
-                    print("es ist noch kein kombiniertes Bild vorhanden")
+                if Image_composed.getImage() is None:
+                    print("FEHLER: Es ist noch kein kombiniertes Bild vorhanden, du musst zuerst eine Wassermarke generieren")
+                    input("Drücke Enter, um fortzufahren...")
                 else:
                     Image_composed.display()
             break
@@ -72,8 +73,9 @@ def userInterface(Image_background, Image_key, Image_alpha, Image_composed, pos_
             elif image == "Image_key":
                 path, width, height = Image_key.getAllImgData()
             elif image == "Image_composed":
-                    if Image_composed is None:
-                        print("es ist noch kein kombiniertes Bild vorhanden")
+                    if Image_composed.getImage() is None:
+                        print("FEHLER: Es ist noch kein kombiniertes Bild vorhanden, du musst zuerst eine Wassermarke erstellen")
+                        input("Drücke Enter, um fortzufahren...")
                         break
                     else:
                         path, width, height = Image_composed.getAllImgData()
@@ -90,12 +92,19 @@ def userInterface(Image_background, Image_key, Image_alpha, Image_composed, pos_
         elif action == "3":
             print("Aktion 3 ausgewählt: Bildgröße ändern")
             image = utils.whichImage()
+            if image == "Image_composed":
+                if Image_composed.getImage() is None:
+                        print("FEHLER: Es ist noch kein kombiniertes Bild vorhanden, du musst zuerst eine Wassermarke erstellen")
+                        input("Drücke Enter, um fortzufahren...")
+                        break
             w = input("Gib die neue Breite in Pixel ein: ")
             h = input("Gib die neue Höhe in Pixel ein: ")
             if image == "Image_background":
                 Image_background.resize(w, h)
             elif image == "Image_key":
                 Image_key.resize(w, h)
+            elif image == "Image_composed":
+                Image_composed.resize(w, h)
             input("Drücke Enter, um fortzufahren...")
             break
         elif action == "4":
@@ -152,17 +161,7 @@ def userInterface(Image_background, Image_key, Image_alpha, Image_composed, pos_
             input("Drücke Enter, um fortzufahren...")
             break
         elif action == "7":
-            print("Aktion 7 ausgewählt: Wassermarke über Bild setzen")
-            print("Diese Aktion scheint es nicht zu geben.")
-            # #wo abfragen?
-            # #diese Action unnötig, wenn wir das Bild schon in Action 4 erstellen
-            # if Image_alpha is None:
-            #     break
-            # patch = Image_background.compose(Image_key, Image_alpha, 0, 0)
-            # input("Wassermarke erfolgreich gesetzt. Drücke Enter, um fortzufahren...")
-            # break
-        elif action == "8":
-            print("Aktion 8 ausgewählt: Wassermarke entfernen")
+            print("Aktion 7 ausgewählt: Wassermarke entfernen")
             confirm = input("Bist du sicher, dass du die Wassermarke entfernen möchtest? (j/n): ").lower()
             if confirm in ("j", "y"):
                     path = os.path.join("working", "composed_img.png")
@@ -177,9 +176,9 @@ def userInterface(Image_background, Image_key, Image_alpha, Image_composed, pos_
                 break
             input("Drücke Enter, um fortzufahren...")
 
-        elif action == "9":
-            print("Aktion 9 ausgewählt: Bild exportieren")
-            #Action 9 mithilfe von Chat erstellt
+        elif action == "8":
+            print("Aktion 8 ausgewählt: Bild exportieren")
+            #Action 8 mithilfe von Chat erstellt
             if Image_composed is None:
                 print("FEHLER: Es gibt kein Bild zum Exportieren.")
                 break
