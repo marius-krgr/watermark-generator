@@ -109,7 +109,17 @@ def userInterface(Image_background, Image_key, Image_alpha, Image_composed, pos_
             break
         elif action == "4":
             print("Aktion 4 ausgewählt: Wassermarke generieren")
-            path = Image_key.createAlpha()
+            while True:
+                eingabe = input("Hast du einen hellen oder dunklen Hintergrund? Drücke 'h' für hellen Hintergrund, 'd' für dunklen Hintergrund: ").lower()
+                if eingabe == "h":
+                    key_blackkeypoint = 0
+                    break
+                elif eingabe == "d":
+                    key_blackkeypoint = 1
+                    break
+                else:
+                    print("Ungültige Eingabe. Bitte versuche es erneut.")
+            path = Image_key.createAlpha(key_blackkeypoint)
             Image_alpha = Image(path)
             if Image_alpha is None:
                 print("Es scheint ein Fehler aufgetreten zu sein. Bitte versuche es erneut.")

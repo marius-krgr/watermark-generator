@@ -37,12 +37,15 @@ class Image:
         cv.waitKey(1)
 
     #bearbeitende Methoden:
-    def createAlpha(self):
+    def createAlpha(self, blackkeypoint):
         if not self.isDataExist():
             return
         assert self.__img is not None
         # Wert 50 ist Threshold-Wert, kann angepasst werden, 255 ist Maximalwert
-        r, newImage = cv.threshold(cv.cvtColor(self.__img, cv.COLOR_BGR2GRAY), 50, 255, cv.THRESH_BINARY)
+        if blackkeypoint == 1:
+            r, newImage = cv.threshold(cv.cvtColor(self.__img, cv.COLOR_BGR2GRAY), 30, 255, cv.THRESH_BINARY)
+        else:
+            r, newImage = cv.threshold(cv.cvtColor(self.__img, cv.COLOR_BGR2GRAY), 240, 255, cv.THRESH_BINARY_INV)
         path = "import/alpha_img_generated.png"
         cv.imwrite(path, newImage)
         return path
